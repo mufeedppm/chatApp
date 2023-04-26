@@ -10,6 +10,7 @@ const password = document.getElementById('password');
 async function addUser(e){
     try{
         e.preventDefault();
+
         let obj ={
             name:nameInput.value,
             phone:phoneInput.value,
