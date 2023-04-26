@@ -1,4 +1,4 @@
-document.getElementById('signUpForm').addEventListener('submit',addUser)
+document.getElementById('signUpForm').addEventListener('submit',addUser);
 const nameInput = document.getElementById('name');
 const phoneInput = document.getElementById('phone');
 const emailInput = document.getElementById('email');
@@ -10,9 +10,6 @@ const password = document.getElementById('password');
 async function addUser(e){
     try{
         e.preventDefault();
-        if(nameInput.value == '' || phoneInput.value == '' || emailInput.value == '' || password==''){
-            alert('Please enter all fields')
-        }
         let obj ={
             name:nameInput.value,
             phone:phoneInput.value,
