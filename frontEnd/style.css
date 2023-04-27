@@ -6,11 +6,7 @@ body{
     color-scheme: dark;
     color:azure;
 }
-.btn{
-  block-size: 35px;
-  background-color: #333;
-  color: #ccc;
-}
+
 
 .edit-btn{
        
@@ -49,7 +45,28 @@ body{
   text-align: center;
  }
   
- 
+ .msgBox {
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px; 
+  width: auto;
+  background-color: #0e1725; 
+  padding: 10px;
+ }
+ .btn{
+  padding: 8px;
+  margin-bottom: 10px;
+ }
+ #chatForm input[type='text'] {
+  width: 60%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
   
   
 

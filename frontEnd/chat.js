@@ -1,16 +1,19 @@
 
 const token = localStorage.getItem('token');
 const chatForm = document.getElementById('chatForm')
-chatForm.addEventListener('submit',addMessage);
+chatForm.addEventListener('submit',sendMessage);
+const chatDiv = document.getElementById('chatDiv'); 
 
 window.addEventListener('DOMContentLoaded',async()=>{
     try{
+        let getChat = await axios.get('http://localhost:3000/chats', {headers: {'Authorization': token}})
+        console.log(getChat)
+        if(getChat.data.success){
+            chatDiv.innerHTML='You joined <br>'+chatDiv.innerHTML;
+            chatForm.appendChild(chatDiv);
+        }
 
     }catch(err){
-        let getChat = await axios.get('http://localhost:3000/chats', {headers: {'Authorization': token}})
-        if(getChat){
-            chatForm.innerHTML+='You joined <br>';
-        }
     }
 } )
 
@@ -23,8 +26,10 @@ async function sendMessage(e){
             message:message.value
         }
         let sendMessage = await axios.post("http://localhost:3000/chats/sendMessage",obj, {headers: {'Authorization': token}});
-        if(sendMessage){
-            chatForm.innerHTML = chatForm.innerHTML+message.value;
+        console.log(sendMessage)
+        if(sendMessage.data.success){
+            chatForm.innerHTML = chatForm.innerHTML + `You: ${message.value} <br>`;
+            console.log(chatDiv)
             message.value = '';
         }
 

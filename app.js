@@ -17,9 +17,19 @@ app.use(bodyParser.json());
 const sequelize = require('./utility/database');
 
 const userRoutes = require('./routes/userRoutes');
+const chatRoutes = require('./routes/chatRoutes')
 
 app.use('/user',userRoutes);
+app.use('/chats',chatRoutes);
 
-sequelize.sync().then(()=>{
+const User = require('./models/userModel');
+const Chat = require('./models/chatModel');
+
+User.hasMany(Chat);
+Chat.belongsTo(User);
+
+
+sequelize.sync()
+.then(()=>{
     app.listen(3000)
 }).catch(err => console.log(err) );
