@@ -9,7 +9,13 @@ window.addEventListener('DOMContentLoaded',async()=>{
         let getChat = await axios.get('http://localhost:3000/chats', {headers: {'Authorization': token}})
         console.log(getChat)
         if(getChat.data.success){
-            chatDiv.innerHTML='You joined <br>'+chatDiv.innerHTML;
+            
+            
+            for(let i=0 ;i<getChat.data.chatData.length;i++){
+                
+                chatForm.innerHTML = chatForm.innerHTML+`${getChat.data.chatData[i].username}: ${getChat.data.chatData[i].message} <br>`;
+            }
+            chatDiv.innerHTML='You joined <br>';
             chatForm.appendChild(chatDiv);
         }
 

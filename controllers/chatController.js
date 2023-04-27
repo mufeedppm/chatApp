@@ -5,12 +5,13 @@ exports.postSendMessage = async (req,res) => {
     const t = await sequelize.transaction();
     try{
         const message = req.body.message;
-        console.log('wefw',await req.user);
+        const user = await req.user;
         const data = await req.user.createChat({
-            message: message
+            message: message,
+            username: user.name
         },{transaction: t});
         await t.commit();
-        res.status(201).json({success:true, chatData: 'data'})
+        res.status(201).json({success:true, chatData: data})
     }catch(err){
         await t.rollback();
          res.status(500).json({success:false, message:'ERR POSTSENDMSG', error:err})
@@ -20,8 +21,8 @@ exports.postSendMessage = async (req,res) => {
 
 exports.getChats = async (req,res) => {
     try{
-        
-        res.status(201).json({success:true});
+        const chats = await Chat.findAll()
+        res.status(201).json({success:true, chatData: chats});
     }catch(err){
         return res.status(500).json({success: false, error: err})
     }
