@@ -1,5 +1,6 @@
 const sequelize = require('../utility/database');
 const Chat = require('../models/chatModel');
+const {Op} = require('sequelize');
 
 exports.postSendMessage = async (req,res) => {
     const t = await sequelize.transaction();
@@ -21,7 +22,17 @@ exports.postSendMessage = async (req,res) => {
 
 exports.getChats = async (req,res) => {
     try{
-        const chats = await Chat.findAll()
+        let lastMessageId = req.query.lastMessageId;
+        if(!lastMessageId){
+            lastMessageId = -1;
+        }
+        const chats = await Chat.findAll({
+            where: {
+                id: {
+                    [Op.gt]: lastMessageId
+                }
+            }
+        })
         res.status(201).json({success:true, chatData: chats});
     }catch(err){
         return res.status(500).json({success: false, error: err})
