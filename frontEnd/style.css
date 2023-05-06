@@ -1,12 +1,15 @@
 .btn-right{
     float: right;
+    margin-left: 10px;
 }
 body{
     background-color: black;
     color-scheme: dark;
     color:azure;
 }
-
+.chatName{
+  float: left;
+}
 
 .edit-btn{
        
@@ -36,13 +39,20 @@ body{
   h3.pg{
     line-height: .8;
   }
-  .expenseBody{
-    background-color: black;
-    margin : 5%;
-  };
   
  .centered{
   text-align: center;
+ }
+ .header{
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px; 
+  width: auto;
+  background-color: #0e1725; 
+  padding: 10px;
  }
   
  .msgBox {
@@ -67,8 +77,34 @@ body{
   border-radius: 5px;
   border: 1px solid #ccc;
 }
-  
-  
+ .chat{
+  display: block;
+  background-color: #a5a1a1;
+  width: 25%;
+  margin-top: 15px;
+ } 
+ .createGrp{
+  /* display: inline-block; */
+  width: 30%;
+  margin-left: 10px;
+  background-color: #444;
+  padding: 3px;
+  color: #ccc;
+  float: right;
+ }
+ .btn-logout{
+  background-color: #444;
+  color: #ccc;
+  padding: 3px;
+ }
+
+ .Form{
+  margin-top: 50px;
+ }
+  .userGroups{
+    margin-top: 50px;
+    padding: 10px;
+  }
 
   .container {
     margin: auto;
