@@ -98,11 +98,21 @@ body{
   padding: 3px;
  }
 
+ .grpControl{
+  display: inline-block;
+  margin-left: 10px;
+  padding: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #ccc;
+  height: 25px
+ }
  .Form{
   margin-top: 50px;
  }
   .userGroups{
     margin-top: 50px;
+    margin-left: 15px;
     padding: 10px;
   }
 

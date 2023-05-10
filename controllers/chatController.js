@@ -1,4 +1,5 @@
 const sequelize = require('../utility/database');
+const Member = require('../models/groupMembersModel');
 const Chat = require('../models/chatModel');
 const {Op} = require('sequelize');
 
@@ -43,6 +44,11 @@ exports.getChats = async (req,res) => {
         console.log(">>>",lastMessageId)
         if(getChat){
             console.log(">>>>>>>ahjks")
+            let isAdmin=false;
+            const member = await Member.findOne({where: {userId: user.id,groupId: getChat.groupId}})
+            if(member){
+                isAdmin=member.isAdmin;
+            }
             
             const chats = await Chat.findAll({
                 where:   {
@@ -53,7 +59,7 @@ exports.getChats = async (req,res) => {
                     
                 }
             })           
-            return res.status(201).json({success:true, chatData: chats});
+            return res.status(201).json({success:true, chatData: chats,isAdmin: isAdmin});
         }
         return res.status(201).json({success:true, chatData: []});
     }catch(err){
