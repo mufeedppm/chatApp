@@ -13,7 +13,7 @@ async function userLogin(e){
             password: password.value
             
         }
-         const response = await axios.post("http://localhost:3000/user/login",obj)
+         const response = await axios.post("http://3.225.239.189/user/login",obj)
 
             console.log(response)
             alert(response.data.message)

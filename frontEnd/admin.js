@@ -53,7 +53,7 @@ window.addEventListener('DOMContentLoaded',async()=>{
             memberList.appendChild(li); 
             makeAdmin.onclick=async() =>{
                 try{
-                    const resp = await axios.post(`http://localhost:3000/groups/addAdmin/${response.data.groupId}`, {userId: li.id}, {headers: {'Authorization': token}});
+                    const resp = await axios.post(`http://3.225.239.189:3000/groups/addAdmin/${response.data.groupId}`, {userId: li.id}, {headers: {'Authorization': token}});
                     alert(resp.data.message)
                     window.location.href=('./admin.html')
                 }catch(err){
@@ -63,7 +63,7 @@ window.addEventListener('DOMContentLoaded',async()=>{
             removeMember.onclick=async()=>{
                 try{
                     console.log("uSerID:",li.id)
-                    const resp = await axios.delete(`http://localhost:3000/groups/removeMembers/${response.data.groupId}/${li.id}`, {headers: {'Authorization': token}});
+                    const resp = await axios.delete(`http://3.225.239.189/groups/removeMembers/${response.data.groupId}/${li.id}`, {headers: {'Authorization': token}});
                     alert(resp.data.message)
                     window.location.href=('./admin.html')
                 }

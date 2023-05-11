@@ -38,7 +38,7 @@ window.addEventListener('DOMContentLoaded',async ()=>{
         }
         else{
             
-            const response = await axios.get(`http://localhost:3000/chats/getChats?lastMessageId=undefined&&getChat=${getChat}`, {headers: {'Authorization': token}});
+            const response = await axios.get(`http://3.225.239.189/chats/getChats?lastMessageId=undefined&&getChat=${getChat}`, {headers: {'Authorization': token}});
             console.log(response)
             if(response.data.success){
                                 
@@ -53,7 +53,7 @@ window.addEventListener('DOMContentLoaded',async ()=>{
                     inviteBtn.appendChild(document.createTextNode('Invite Members'))
                     header.appendChild(inviteBtn)
                     inviteBtn.onclick=(async ()=>{
-                        const link =  `http://localhost:3000/groups/joinGroup/${chatName.id}`;
+                        const link =  `http://3.225.239.189/groups/joinGroup/${chatName.id}`;
                         alert(`Share this link with your friends to invite them ${link} `)
                     })
                     const groupControlBtn = document.createElement('button');
@@ -94,7 +94,7 @@ window.addEventListener('DOMContentLoaded',async ()=>{
                     lastMessageId = oldMessage[oldMessage.length - 1].id;
                 }
                 
-                const response = await axios.get(`http://localhost:3000/chats/getChats?lastMessageId=${lastMessageId}&&getChat=${getChat}`, {headers: {'Authorization': token}});
+                const response = await axios.get(`http://3.225.239.189/chats/getChats?lastMessageId=${lastMessageId}&&getChat=${getChat}`, {headers: {'Authorization': token}});
                 
                 
                 
@@ -156,7 +156,7 @@ async function sendMessage(e){
             }
         }
         
-        let sendMessage = await axios.post("http://localhost:3000/chats/sendMessage",obj, {headers: {'Authorization': token}});
+        let sendMessage = await axios.post("http://3.225.239.189/chats/sendMessage",obj, {headers: {'Authorization': token}});
         console.log(sendMessage)
         if(sendMessage.data.success){
             // chatForm.innerHTML = chatForm.innerHTML + `You: ${message.value} <br>`;
