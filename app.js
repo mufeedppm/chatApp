@@ -7,7 +7,7 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(express.static(path.join(__dirname,'frontEnd')))
+// app.use(express.static(path.join(__dirname,'frontEnd')))
 
 app.use(cors({
     origin: '*'
@@ -23,6 +23,10 @@ const groupRoutes = require('./routes/groupRoutes')
 app.use('/user',userRoutes);
 app.use('/chats',chatRoutes);
 app.use('/groups',groupRoutes)
+
+app.use((req,res)=>{
+    res.sendFile(path.join(__dirname,`frontEnd/${req.url}`))
+})
 
 const User = require('./models/userModel');
 const Chat = require('./models/chatModel');
