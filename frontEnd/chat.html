@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>ChatApp</title>   
+</head>
+<body>
+    <header class="header" id='header'><h3 class="chatName" id="chatName"></h3><input type="button" id='home' class="btn btn-right" value="Home" onclick="window.location.href = 'home.html';"> <input type="button" id='logout' class="btn btn-right " value="Logout"> </header>
+    <form  id="chatForm" class="Form" >
+        <div id="chatDiv"></div>
+    <div class="msgBox" id="msgBox">
+        <input type="text" name="message" id="message" placeholder="Enter the message to be sent">
+        <input type="submit" class='btn' value="Send">
+    </div>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="chat.js"></script>
+</body>
+</html>
