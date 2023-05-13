@@ -6,7 +6,7 @@ const getChat = JSON.stringify({ groupId: chatName.id});
 const memberList = document.getElementById('memberList')
 
 window.addEventListener('DOMContentLoaded',async()=>{
-    const response = await axios.get(`http://localhost:3000/groups/getMembers?getChat=${getChat}`, {headers: {'Authorization': token}});
+    const response = await axios.get(`http://3.225.239.189:3000/groups/getMembers?getChat=${getChat}`, {headers: {'Authorization': token}});
     console.log(response)
     const members = [...response.data.members]
     const users = [...response.data.users]
@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded',async()=>{
             
             memberList.appendChild(li)
             addToGrp.onclick = async()=>{
-                const resp = await axios.post(`http://localhost:3000/groups/joinGroup/${response.data.groupId}`, {userId: JSON.stringify(li.id)}, {headers: {'Authorization': token}});
+                const resp = await axios.post(`http://3.225.239.189:3000/groups/joinGroup/${response.data.groupId}`, {userId: JSON.stringify(li.id)}, {headers: {'Authorization': token}});
                 members.push(users[i])
                 alert(resp.data.message)
                 window.location.href=('./admin.html')
@@ -63,7 +63,7 @@ window.addEventListener('DOMContentLoaded',async()=>{
             removeMember.onclick=async()=>{
                 try{
                     console.log("uSerID:",li.id)
-                    const resp = await axios.delete(`http://3.225.239.189/groups/removeMembers/${response.data.groupId}/${li.id}`, {headers: {'Authorization': token}});
+                    const resp = await axios.delete(`http://3.225.239.189:3000/groups/removeMembers/${response.data.groupId}/${li.id}`, {headers: {'Authorization': token}});
                     alert(resp.data.message)
                     window.location.href=('./admin.html')
                 }
