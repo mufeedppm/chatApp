@@ -1,15 +1,26 @@
 require('dotenv').config();
-
+const http = require('http');
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const socketIO = require('socket.io');
 const app = express();
+
+const server = http.createServer(app);
+const io = socketIO(server);
+
+
+io.on('connection', socket => {
+    console.log('Socket Id:',socket.id)
+    socket.on('send-message', message => {
+        socket.broadcast.emit('recieve-message', { message: message })
+    })
+})
 
 // app.use(express.static(path.join(__dirname,'frontEnd')))
 
-app.use(cors({
+app.use(cors({ 
     origin: '*'
 }));
 app.use(bodyParser.json());
@@ -49,5 +60,5 @@ Chat.belongsTo(Group);
 
 sequelize.sync({})
 .then(()=>{
-    app.listen(3000)
+    server.listen(3000)
 }).catch(err => console.log(err) ); 

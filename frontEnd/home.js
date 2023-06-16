@@ -12,10 +12,10 @@ window.addEventListener('DOMContentLoaded',async ()=>{
             localStorage.removeItem('oldMessage')
             window.location.href='./login.html'
         })
-        const response = await axios.get(`http://3.225.239.189:3000/groups/getGroups`, {headers: {'Authorization': token}});
+        const response = await axios.get(`http://localhost:3000/groups/getGroups`, {headers: {'Authorization': token}});
         console.log(response);
         localStorage.setItem('chatName',JSON.stringify({thisUserId: response.data.thisUser.id}));
-        const chats=[...response.data.users,...response.data.groups];
+        const chats=[...response.data.groups];
         
         console.log("label",chats)
         for(let i=0;i<chats.length;i++){
@@ -57,7 +57,7 @@ createGroupBtn.addEventListener("click",async  () => {
        if (groupName) {
          const confirmCreate = window.confirm(`Are you sure you want to create group ${groupName} ?`);
          if (confirmCreate) {
-             const response = await axios.post(`http://3.225.239.189:3000/groups/createGroup`, {groupName: groupName}, {headers: {'Authorization': token}});
+             const response = await axios.post(`http://localhost:3000/groups/createGroup`, {groupName: groupName}, {headers: {'Authorization': token}});
              if(response.data.success){
                 const li = document.createElement('li');
                 li.classList='btn chat';

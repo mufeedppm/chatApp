@@ -3,6 +3,7 @@ const Member = require('../models/groupMembersModel');
 const Chat = require('../models/chatModel');
 const {Op} = require('sequelize');
 
+
 exports.postSendMessage = async (req,res) => {
     const t = await sequelize.transaction();
     try{
@@ -18,6 +19,10 @@ exports.postSendMessage = async (req,res) => {
         },{transaction: t});
         await t.commit();
         res.status(201).json({success:true, chatData: data})
+
+        
+
+        
     }catch(err){
         await t.rollback();
          res.status(500).json({success:false, message:'ERR POSTSENDMSG', error:err})

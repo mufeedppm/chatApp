@@ -17,7 +17,7 @@ async function addUser(e){
             email:emailInput.value,
             password:password.value
         }
-        const response = await axios.post("http://3.225.239.189:3000/user/signup",obj)
+        const response = await axios.post("http://localhost:3000/user/signup",obj)
         
         
         if(response.status==201){
