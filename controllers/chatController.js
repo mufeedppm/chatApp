@@ -1,6 +1,8 @@
 const sequelize = require('../utility/database');
 const Member = require('../models/groupMembersModel');
+const fs=require('fs');
 const Chat = require('../models/chatModel');
+const s3Service = require('../services/s3Services')
 const {Op} = require('sequelize');
 
 
@@ -70,5 +72,22 @@ exports.getChats = async (req,res) => {
     }catch(err){
         console.log(err)
         return res.status(500).json({success: false, error: err})
+    }
+}
+
+exports.uploadMedia = async(req,res) => {
+    try{
+        const media=await req.file;
+        console.log(media,"MEDIA")
+        const fileName= Date.now()+'-'+media.originalname;
+        const fileUrl= await s3Service.uploadToS3(media,fileName); 
+        console.log(fileUrl,"FILEURL")
+        return res.status(201).json({success:true, fileUrl:fileUrl});
+    }catch(err){
+        console.log("EROOOOR",err.message)
+        if(err.message === "Cannot read properties of undefined (reading 'file')"){
+            return res.status(204).json({ message: "No Content found"})
+        }
+        return res.status(500).json({success: false, error: JSON.stringify(err)})
     }
 }

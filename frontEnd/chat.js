@@ -15,6 +15,7 @@ const chatName = JSON.parse(localStorage.getItem('chatName'));
 const getChat = JSON.stringify({ groupId: chatName.id});
 const decodedToken =  parseJwt(token);
 
+
 console.log("toke is",decodedToken)
 
 socket.on('connect',()=>{
@@ -144,9 +145,33 @@ async function sendMessage(e){
         e.preventDefault();
         let obj
         let message = document.getElementById('message').value;
+        const media = document.getElementById('file');
+        console.log("MEDIA",media.value)
+        let downloadLink = '';
+        let data;
+        // console.log("Media",media.files[0])
+        if(media.value){
+            const file = media.files[0];
+            data=new FormData();
+            console.log("file",file)
+            data.append('file',file)
+            data.enctype = "multipart/form-data";
+            console.log("data",data);
+            const uploadRes = await axios.post("http://localhost:3000/chats/upload-media",data, {headers: { 'Content-Type': 'multipart/form-data'}})
+            console.log(JSON.stringify(uploadRes.data))
+            if(uploadRes.status===201){
+                downloadLink = `<a href=${uploadRes.data.fileUrl}>Download </a>`
+                
+            }
+            console.log(uploadRes,"res",downloadLink)
+
+        }
+        // else if(uploadRes.status===204 && uploadRes.data.message==='no media found'){
+        //     downloadLink=''
+        // }
         if(chatName.isGroup){
             obj={
-                message:message,
+                message:`${message} ${downloadLink}`,
                 groupId: chatName.id,
                 
             }
