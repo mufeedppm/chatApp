@@ -160,7 +160,7 @@ async function sendMessage(e){
             const uploadRes = await axios.post("http://localhost:3000/chats/upload-media",data, {headers: { 'Content-Type': 'multipart/form-data'}})
             console.log(JSON.stringify(uploadRes.data))
             if(uploadRes.status===201){
-                downloadLink = `<a href=${uploadRes.data.fileUrl}>Download </a>`
+                downloadLink = `<a href=${uploadRes.data.fileUrl} target="_blank" > View Media </a>`
                 
             }
             console.log(uploadRes,"res",downloadLink)

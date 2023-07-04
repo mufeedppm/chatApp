@@ -8,14 +8,14 @@ exports.getGroups = async (req,res) =>{
     try{
         const user = await req.user;
         const members = await Member.findAll({where: {userId: user.id}})
-        // const users = await User.findAll( {where: {
-        //         id: {
-        //             [Op.ne]: user.id 
-        //         }
-        //     }
-        //   });
+        const users = await User.findAll( {where: {
+                id: {
+                    [Op.ne]: user.id 
+                }
+            }
+          });
 
-        res.status(201).json({success: true, groups: members, thisUser:user})
+        res.status(201).json({success: true, groups: members,users: users, thisUser:user})
     }catch(err){
         res.status(500).json({success:false, error: err})
         console.log("ERROR",err)

@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded',async ()=>{
         const response = await axios.get(`http://localhost:3000/groups/getGroups`, {headers: {'Authorization': token}});
         console.log(response);
         localStorage.setItem('chatName',JSON.stringify({thisUserId: response.data.thisUser.id}));
-        const chats=[...response.data.groups];
+        const chats=[...response.data.groups,...response.data.users];
         
         console.log("label",chats)
         for(let i=0;i<chats.length;i++){

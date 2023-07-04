@@ -1,4 +1,5 @@
 const AWS = require('aws-sdk')
+const fs = require('fs')
 
 exports.uploadToS3= async (file,filename) => {
     
@@ -9,7 +10,7 @@ exports.uploadToS3= async (file,filename) => {
         const params = {
             Bucket: process.env.BUCKET_NAME,
             Key: filename,
-            Body: file.path,
+            Body: fs.createReadStream(file.path),
             ContentType: file.mimetype,
             ACL: 'public-read'
         }
