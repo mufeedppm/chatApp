@@ -187,7 +187,7 @@ async function sendMessage(e){
         console.log(sendMessage)
         if(sendMessage.data.success){
             socket.emit('send-message', message)
-            console.log("sockeMessage",message)
+            // console.log("sockeMessage",message)
             chatForm.innerHTML =''
             chatForm.appendChild(msgBox);
             

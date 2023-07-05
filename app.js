@@ -43,6 +43,7 @@ const User = require('./models/userModel');
 const Chat = require('./models/chatModel');
 const Member = require('./models/groupMembersModel');
 const Group = require('./models/groupModel');
+const ArchivedChat = require('./models/archiveChatModel')
 
 
 User.hasMany(Chat);
@@ -57,6 +58,55 @@ Member.belongsTo(Group);
 
 Group.hasMany(Chat);
 Chat.belongsTo(Group);
+
+const { Op } = require('sequelize');
+var CronJob = require('cron').CronJob;
+
+var job = new CronJob(
+    '0 2 * * * *',            
+async function archiveMessages() {
+  try {
+    
+    let twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(); 
+    
+
+    console.log("TIMEEE",twentyFourHoursAgo)
+
+    const messages = await Chat.findAll({
+      where: {
+        createdAt: {
+          [Op.lte]: twentyFourHoursAgo
+        }
+      }
+    });
+    for (const message of messages) {
+        await ArchivedChat.create({
+          
+          message: message.message,
+          username: message.username,
+
+        });
+      }
+  
+      
+      const deletedCount = await Chat.destroy({
+        where: {
+          createdAt: {
+            [Op.lte]: twentyFourHoursAgo
+          }
+        }
+      });
+  
+    
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  },
+    null,                     
+    true,                     
+    'Asia/Kolkata'     
+);
+
 
 sequelize.sync({})
 .then(()=>{
